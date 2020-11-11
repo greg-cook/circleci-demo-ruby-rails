@@ -5,6 +5,18 @@ orbs:
   node: circleci/node@2
 
 jobs:
+  is_pr:
+    docker:
+      - image: cimg/base
+    steps:
+      - run:
+          name: Check if PR
+          command: |
+            if [[ -z "${CIRCLE_PR_NUMBER}" ]]; then
+              circleci-agent step halt
+            else
+              exit 0
+            fi
   build:
     docker:
       - image: cimg/ruby:2.7-node
