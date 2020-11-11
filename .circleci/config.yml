@@ -63,7 +63,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - is_pr
+      - build:
+          requires:
+            - is_pr
       - test:
           requires:
             - build
