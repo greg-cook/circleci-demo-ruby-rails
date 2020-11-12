@@ -14,7 +14,9 @@ jobs:
           command: |
             if [[ -z "${CIRCLE_PR_NUMBER}" ]]; then
               echo "Not a PR, cancelling workflow..."
-              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel -H 'Accept: application/json' -u '${CIRCLE_TOKEN}:'
+              curl --request POST \
+                --url https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel \
+                --header 'authorization: Basic ${CIRCLE_TOKEN}'
             else
               echo "PR detected, continuing workflow..."
               exit 0
