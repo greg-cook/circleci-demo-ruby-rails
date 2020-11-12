@@ -13,8 +13,10 @@ jobs:
           name: Check if PR
           command: |
             if [[ -z "${CIRCLE_PR_NUMBER}" ]]; then
-              circleci-agent step halt
+              echo "Not a PR, cancelling workflow..."
+              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel -H 'Accept: application/json' -u '${CIRCLE_TOKEN}:'
             else
+              echo "PR detected, continuing workflow..."
               exit 0
             fi
   build:
