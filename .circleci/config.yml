@@ -7,7 +7,7 @@ orbs:
 jobs:
   is_pr:
     docker:
-      - image: cimg/base
+      - image: cimg/base:2020.11
     steps:
       - run:
           name: Check if PR
@@ -63,7 +63,11 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - is_pr
+      - is_pr:
+          filters:
+            branch:
+              ignore:
+                - master
       - build:
           requires:
             - is_pr
