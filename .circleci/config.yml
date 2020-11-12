@@ -7,12 +7,12 @@ orbs:
 jobs:
   is_pr:
     docker:
-      - image: cimg/base:2020.11
+      - image: busybox
     steps:
       - run:
           name: Check if PR
           command: |
-            if [[ -z "$CIRCLE_PR_NUMBER" ]]; then
+            if [ -z "$CIRCLE_PR_NUMBER" ]; then
               echo "Not a PR, cancelling workflow..."
               curl --request POST \
                 --url https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/cancel \
