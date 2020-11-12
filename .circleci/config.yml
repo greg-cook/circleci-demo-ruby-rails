@@ -7,7 +7,7 @@ orbs:
 jobs:
   is_pr:
     docker:
-      - image: busybox
+      - image: curlimages/curl
     steps:
       - run:
           name: Check if PR
