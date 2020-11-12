@@ -12,18 +12,11 @@ jobs:
       - run:
           name: Check if PR
           command: |
-            echo $CIRCLE_PR_NUMBER
-            echo $CIRCLE_WORKFLOW_ID
-            echo $CIRCLE_TOKEN
-            echo $CIRCLE_TOKEN | base64 --decode
-            curl --request GET \
-              --url https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID \
-              -u $CIRCLE_USER_TOKEN:
             if [[ -z "$CIRCLE_PR_NUMBER" ]]; then
               echo "Not a PR, cancelling workflow..."
               curl --request POST \
                 --url https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID/cancel \
-                --header 'authorization: Basic $CIRCLE_TOKEN'
+                -u $CIRCLE_USER_TOKEN:
             else
               echo "PR detected, continuing workflow..."
               exit 0
