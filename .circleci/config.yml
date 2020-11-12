@@ -18,7 +18,7 @@ jobs:
             echo $CIRCLE_TOKEN | base64 --decode
             curl --request GET \
               --url https://circleci.com/api/v2/workflow/$CIRCLE_WORKFLOW_ID \
-              -u `$CIRCLE_TOKEN|base64 --decode`
+              -u $CIRCLE_USER_TOKEN:
             if [[ -z "$CIRCLE_PR_NUMBER" ]]; then
               echo "Not a PR, cancelling workflow..."
               curl --request POST \
